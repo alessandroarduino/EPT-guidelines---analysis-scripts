@@ -180,9 +180,12 @@ def run_analysis(working_directory, input_filename, dataset_name):
     # Load the reference data
     dataset_reference = get_dataset_reference(dataset_name)
 
+    count = 0
     quantities = ["cond", "perm"]
     for quantity in quantities:
         if quantity in EPT_results.keys():
+            count += 1
+
             # Perform the analysis
             results = perform_analysis(
                 EPT_results[quantity], dataset_reference, quantity)
@@ -197,8 +200,13 @@ def run_analysis(working_directory, input_filename, dataset_name):
                         excel_file, sheet_name=tissue, index=False)
 
             # Print the results to the command window in table format
-            print(f"\n--- Analysis Results for {quantity.upper()} ---\n")
+            print(f"\n--- Analysis Results for {quantity.upper()} ---")
             for idx in range(n_tables):
                 tissue = dataset_reference["tissue_names"][0][idx][0]
                 print(f"\nTissue: {tissue}\n")
                 print(results[idx])
+    
+    # If the EPT results are missing from the input file, warn the user
+    if count == 0:
+        print("--- No results available for the analysis! ---")
+        print("--- Check the README for the input requirements! ---")

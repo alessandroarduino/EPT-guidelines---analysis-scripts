@@ -32,9 +32,12 @@ load(address);
 %Load the reference data
 dataset_reference = get_dataset_reference(dataset_name);
 
+count = 0;
 quantities = ["cond", "perm"];
 for quantity = quantities
     if exist(quantity, 'var')
+        count = count + 1;
+        
         %Perform the analysis
         command = sprintf('perform_analysis(%s, dataset_reference, quantity)', quantity);
         results = eval(command);
@@ -56,6 +59,12 @@ for quantity = quantities
         end
 
     end
+end
+
+% If the EPT results are missing from the input file, warn the user
+if count == 0
+    fprintf('--- No results available for the analysis! ---\n')
+    fprintf('--- Check the README for the input requirements! ---\n')
 end
 
 % Terminate the environment for the EPT result analysis
