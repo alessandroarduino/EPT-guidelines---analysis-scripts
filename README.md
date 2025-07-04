@@ -27,7 +27,9 @@ The repository contains both a Matlab and a Python version of the tool.
 ### Prerequisites
 
 The following packages are needed:
-   - [numpy](https://numpy.org) (>=2.2.4)
+   - [cmcrameri](https://pypi.org/project/cmcrameri/) (>=1.8)
+   - [matplotlib](https://matplotlib.org/) (>=3.9.2)
+   - [numpy](https://numpy.org) (>=2.1.3)
    - [openpyxl](https://openpyxl.readthedocs.io) (>=3.1.5)
    - [pandas](https://pandas.pydata.org/) (>=2.2.3)
    - [scikit-image](https://scikit-image.org/) (>=0.25.2)

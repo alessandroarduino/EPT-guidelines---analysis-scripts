@@ -104,6 +104,7 @@ def metrics_rmse(x, x_ref):
     scalar
         Root mean square error
     """
+    x = x[np.isfinite(x)]
     n = x.size
     m = np.linalg.norm(x - x_ref, ord=2) / np.sqrt(n)
     return m

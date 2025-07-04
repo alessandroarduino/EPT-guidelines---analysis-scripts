@@ -1,6 +1,7 @@
 """Collection of functions for the EPT result analysis.
 
-This file requires `numpy`, `scipy`, `skimage`, `pandas`, `openpyxl`.
+This file requires `cmcrameri`, `matplotlib`, `numpy`, `scipy`, `skimage`,
+`pandas`, `openpyxl`.
 
 @author: Alessandro Arduino
 @email: a.arduino@inrim.it
@@ -12,6 +13,9 @@ import os
 import scipy.io as sio
 import skimage.morphology as morpho
 import pandas as pd
+
+from cmcrameri import cm as cmc
+from matplotlib import pyplot as plt
 
 from .metrics import *
 
@@ -114,7 +118,7 @@ def perform_analysis(image, dataset_reference, quantity):
     image : np.array
         Input data with conductivity or permittivity values
     dataset_reference : dict
-        Structure for dataset references
+        Dictionary for dataset references
     quantity : "cond" | "perm"
         Name of the analysed quantity
 
@@ -152,6 +156,118 @@ def perform_analysis(image, dataset_reference, quantity):
                 results[label].loc[row, metrics] = m
 
     return results
+
+
+def generate_reference_map(dataset_reference, quantity):
+    """Combine the segmentation and the reference values in a reference map.
+
+    Parameters
+    ----------
+    dataset_reference : dict
+        Dictionary for dataset references
+    quantity : "cond" | "perm"
+        Name of the analysed quantity
+
+    Returns
+    -------
+    np.array
+        Reference map
+    """
+    ref_map = dataset_reference["segmentation"].astype("double")
+
+    key_ref = f"{quantity}_ref"
+    x_ref = dataset_reference[key_ref]
+
+    for label in range(len(x_ref)):
+        mask = ref_map == label+1
+        ref_map[mask] = x_ref[label]
+
+    return ref_map
+
+
+def evaluate_global_metrics(image, dataset_reference, quantity):
+    """Apply the global metrics to the data for EPT result analysis.
+
+    The global metrics is a global NRMSE evaluated on the entire image
+    excluded the background and possible NaNs.
+
+    Parameters
+    ----------
+    image : np.array
+        Input data with conductivity or permittivity values
+    dataset_reference : dict
+        Dictionary for dataset references
+    quantity : "cond" | "perm"
+        Name of the analysed quantity
+
+    Returns
+    -------
+    scalar
+        Global NRMSE
+    """
+    mask = np.logical_and(dataset_reference["segmentation"] > 0,
+                          np.isfinite(image))
+    x = image[mask]
+    x_ref = generate_reference_map(dataset_reference, quantity)[mask]
+    m = np.linalg.norm(x - x_ref, ord=2) / np.linalg.norm(x_ref, ord=2)
+    return m
+
+
+def get_color_map(quantity):
+    """Select the correct colormap depending on the quantity to be plotted.
+
+    Parameters
+    ----------
+    quantity: "cond" | "perm"
+        Name of the analysed quantity
+
+    Returns
+    -------
+    Colormap
+        Palette associated with the considered quantity
+    """
+    if quantity == "cond":
+        colormap = cmc.lipari
+    else:
+        colormap = cmc.navia
+    return colormap
+
+
+def plot_map(image, dataset_reference, quantity):
+    """Plot a comparison between the EPT result and the reference image.
+
+    Parameters
+    ----------
+    image : np.array
+        Input data with conductivity or permittivity values
+    dataset_reference : dict
+        Dictionary for dataset references
+    quantity : "cond" | "perm"
+        Name of the analysed quantity
+
+    Returns
+    -------
+    Figure
+        Handler to the figure
+    """
+    k0 = image.shape[2] // 2
+    ref_image = generate_reference_map(dataset_reference, quantity)
+
+    fig, axs = plt.subplots(1, 2, sharey=True, squeeze=True, figsize=(6.5,3.22))
+
+    title_quantity = "cond. (S/m)" if quantity == "cond" else "rel. perm. (-)"
+    colormap = get_color_map(quantity)
+
+    axs[0].imshow(image[..., k0], vmin=0, vmax=2.5, cmap=colormap)
+    axs[0].set_title(f"Reconstructed {title_quantity}")
+
+    im = axs[1].imshow(ref_image[..., k0], vmin=0, vmax=2.5, cmap=colormap)
+    axs[1].set_title(f"Reference {title_quantity}")
+
+    fig.tight_layout()
+    fig.colorbar(im, ax=axs, shrink=0.85)
+
+    return fig
 
 
 def run_analysis(working_directory, input_filename, dataset_name):
@@ -205,7 +321,19 @@ def run_analysis(working_directory, input_filename, dataset_name):
                 tissue = dataset_reference["tissue_names"][0][idx][0]
                 print(f"\nTissue: {tissue}\n")
                 print(results[idx])
-    
+
+            # Perform the global analysis
+            global_nrmse = evaluate_global_metrics(
+                EPT_results[quantity], dataset_reference, quantity)
+
+            # Export the results to png file
+            fig = plot_map(EPT_results[quantity], dataset_reference, quantity)
+            fig.text(
+                0.5, 0.02, "Global NRMSE: {:.2f} %".format(global_nrmse*100),
+                ha="center")
+            address = f"{address_root}_{quantity}.png"
+            fig.savefig(address, dpi=300)
+
     # If the EPT results are missing from the input file, warn the user
     if count == 0:
         print("--- No results available for the analysis! ---")
