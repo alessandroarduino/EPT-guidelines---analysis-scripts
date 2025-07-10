@@ -253,15 +253,19 @@ def plot_map(image, dataset_reference, quantity):
     k0 = image.shape[2] // 2
     ref_image = generate_reference_map(dataset_reference, quantity)
 
-    fig, axs = plt.subplots(1, 2, sharey=True, squeeze=True, figsize=(6.5,3.22))
+    fig, axs = plt.subplots(
+        1, 2, sharey=True, squeeze=True, figsize=(6.5, 3.22))
 
     title_quantity = "cond. (S/m)" if quantity == "cond" else "rel. perm. (-)"
+    vmin = 0.0 if quantity == "cond" else 30
+    vmax = 2.5 if quantity == "cond" else 100
+
     colormap = get_color_map(quantity)
 
-    axs[0].imshow(image[..., k0], vmin=0, vmax=2.5, cmap=colormap)
+    axs[0].imshow(image[..., k0], vmin=vmin, vmax=vmax, cmap=colormap)
     axs[0].set_title(f"Reconstructed {title_quantity}")
 
-    im = axs[1].imshow(ref_image[..., k0], vmin=0, vmax=2.5, cmap=colormap)
+    im = axs[1].imshow(ref_image[..., k0], vmin=vmin, vmax=vmax, cmap=colormap)
     axs[1].set_title(f"Reference {title_quantity}")
 
     fig.tight_layout()
