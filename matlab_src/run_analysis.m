@@ -58,6 +58,20 @@ for quantity = quantities
             disp(results{idx});
         end
 
+        % Perform the global analysis
+        command = sprintf('evaluate_global_metrics(%s, dataset_reference, quantity)', quantity);
+        global_nrmse = eval(command);
+
+        % Export the results to png file
+        command = sprintf('plot_map(%s, dataset_reference, quantity)', quantity);
+        fig = eval(command);
+        h = axes(fig, 'Visible', 'off');
+        h.XLabel.Visible = 'on';
+        xlabel(sprintf('Global NRMSE: %.2f %%', global_nrmse*100));
+        address = sprintf('%s_%s.png', address_root, quantity);
+        exportgraphics(fig, address, "Resolution", 300);
+        close(fig);
+
     end
 end
 

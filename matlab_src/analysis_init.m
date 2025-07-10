@@ -11,6 +11,7 @@ global erosion_levels;
 list_of_metrics = ["mean", "std", "median", "iqr", "rmse", "nrmse"];
 erosion_levels = [0, 2, 4];
 
+addpath('./matlab_src/colormaps/');
 addpath('./matlab_src/metrics/');
 
 end

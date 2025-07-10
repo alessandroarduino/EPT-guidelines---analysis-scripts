@@ -8,6 +8,7 @@ function analysis_finalize()
 clear global list_of_metrics;
 clear global erosion_levels;
 
+rmpath('./matlab_src/colormaps/');
 rmpath('./matlab_src/metrics/');
 
 end

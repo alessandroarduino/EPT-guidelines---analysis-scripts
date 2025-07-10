@@ -15,6 +15,10 @@ The repository contains both a Matlab and a Python version of the tool.
    - `dataset_name`: the name of the dataset used for testing.
 3. Run `main.m`.
 
+### Credits
+
+The used files of colormaps `lipari.mat` and `navia.mat` are from the library of [Scientific color maps](https://doi.org/10.5281/zenodo.8409685) by Fabio Crameri.
+
 ## Python
 
 1. Open the file `main.py`.
