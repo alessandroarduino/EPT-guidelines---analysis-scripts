@@ -173,13 +173,14 @@ def generate_reference_map(dataset_reference, quantity):
     np.array
         Reference map
     """
-    ref_map = dataset_reference["segmentation"].astype("double")
+    segmentation = dataset_reference["segmentation"].astype("double")
+    ref_map = np.zeros_like(segmentation)
 
     key_ref = f"{quantity}_ref"
     x_ref = dataset_reference[key_ref]
 
     for label in range(len(x_ref)):
-        mask = ref_map == label+1
+        mask = segmentation == label+1
         ref_map[mask] = x_ref[label]
 
     return ref_map

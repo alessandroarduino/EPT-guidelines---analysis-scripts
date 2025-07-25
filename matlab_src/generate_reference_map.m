@@ -25,7 +25,7 @@ command = sprintf('dataset_reference.%s_ref', quantity);
 x_ref = eval(command);
 
 for label = 1:length(x_ref)
-    mask = ref_map == label;
+    mask = dataset_reference.segmentation == label;
     ref_map(mask) = x_ref(label);
 end
 

@@ -11,8 +11,7 @@ The repository contains both a Matlab and a Python version of the tool.
 1. Open the file `main.m`.
 2. Update the following parameters:
    - `working_directory`: the folder where input/output files are stored.
-   - `input_filename`: the name of the `.mat` file (without extension) that contains the EPT results.
-   - `dataset_name`: the name of the dataset used for testing.
+   - `test_cases`: cell with two columns and as many rows as test cases to be analysed. In each row, the first column contains the name of the dataset used for testing, the second column the name of the `.mat` file (without extension) that contains the EPT results in the working directory.
 3. Run `main.m`.
 
 ### Credits
@@ -24,8 +23,7 @@ The used files of colormaps `lipari.mat` and `navia.mat` are from the library of
 1. Open the file `main.py`.
 2. Update the following parameters:
    - `working_directory`: the folder where input/output files are stored.
-   - `input_filename`: the name of the `.mat` file (without extension) that contains the EPT results.
-   - `dataset_name`: the name of the dataset used for testing.
+   - `test_cases`: dictionary of test cases. For each entry of the dictionary, the key contains the name of the dataset used for testing, and the value is the name of the `.mat` file (without extension) that contains the EPT results in the working directory.
 3. Run `main.py`.
 
 ### Prerequisites
