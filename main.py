@@ -6,6 +6,7 @@
 """
 
 from python_src.analysis import run_analysis
+from python_src.save_output import save_outputs
 
 working_directory = "example"
 test_cases = {
@@ -17,6 +18,6 @@ test_cases = {
     "f": "Sphere_phantom-out",
 }
 
-for dataset_name in test_cases.keys():
-    input_filename = test_cases[dataset_name]
+for dataset_name, input_filename in test_cases.items():
     run_analysis(working_directory, input_filename, dataset_name)
+    save_outputs(working_directory, input_filename)
