@@ -12,11 +12,16 @@ test_cases = {
     'f', 'Sphere_phantom-out';
 };
 
+% create subfolders if needed
+
+suffixes = {'_cond', '_perm'};
+
 for idx = 1:size(test_cases, 1)
-    dataset_name = test_cases{idx, 1};
     input_filename = test_cases{idx, 2};
 
     addpath('matlab_src/');
-    run_analysis(working_directory, input_filename, dataset_name);
+    run_analysis(working_directory, input_filename, test_cases{idx,1});
+    save_outputs
     rmpath('matlab_src/');
+
 end
