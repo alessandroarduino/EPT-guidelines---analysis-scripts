@@ -10,12 +10,12 @@ from python_src.save_output import save_outputs
 
 working_directory = "example"
 test_cases = {
-    "a": "Brain_sim_healthy_noiseless-out",
-    "b": "Brain_sim_healthy_noise-out",
-    "c": "Brain_sim_tumor_noiseless-out",
-    "d": "Brain_sim_tumor_noise-out",
-    "e": "Cylinder_phantom-out",
-    "f": "Sphere_phantom-out",
+    "A Simulated Brain without tumor without noise": "A_Brain_sim_healthy_noiseless-out",
+    "B Simulated Brain without tumor with noise": "B_Brain_sim_healthy_noise-out",
+    "C Simulated Brain with tumor without noise": "C_Brain_sim_tumor_noiseless-out",
+    "D Simulated Brain with tumor with noise": "D_Brain_sim_tumor_noise-out",
+    "E Measured Sphere phantom": "E_Sphere_phantom-out",
+    "F Measured Cylindrical phantom": "F_Cylinder_phantom-out",
 }
 
 for dataset_name, input_filename in test_cases.items():
