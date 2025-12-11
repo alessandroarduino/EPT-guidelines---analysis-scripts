@@ -1,4 +1,4 @@
-function m = evaluate_global_metrics(image, dataset_reference, quantity)
+function [m, m99] = evaluate_global_metrics(image, dataset_reference, quantity)
 %EVALUATE_GLOBAL_METRICS - Apply the global metrics to the data for EPT
 %   result analysis.
 %
@@ -19,6 +19,8 @@ function m = evaluate_global_metrics(image, dataset_reference, quantity)
 %   Output Arguments
 %     'm' - Global NRMSE
 %       scalar
+%     'm99' - NRMSE of the best 99 % of voxels
+%       scalar
 %
 %   @author: Alessandro Arduino
 %   @email: a.arduino@inrim.it
@@ -30,6 +32,10 @@ x = image(mask);
 x_ref = generate_reference_map(dataset_reference, quantity);
 x_ref = x_ref(mask);
 
-m = norm(x - x_ref, 2) / norm(x_ref, 2);
+error = abs(x - x_ref);
+m = norm(error, 2) / norm(x_ref, 2);
+
+mask = error < prctile(error, 99);
+m99 = norm(error(mask), 2) / norm(x_ref(mask), 2);
 
 end

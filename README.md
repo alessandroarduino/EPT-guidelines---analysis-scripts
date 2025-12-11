@@ -1,8 +1,10 @@
 This readme gives an overview of the tool to analyse Magnetic Resonance-based Electrical Properties Tomography (MR-EPT) performances as part of the standardization guidelines for MR-EPT reconstruction standardization, which can be found [here]().
 
+An updated version of the tool can be found in the [Github repository](https://github.com/alessandroarduino/EPT-guidelines---analysis-scripts).
+
 # Overview
 
-This tool performs an analysis of the results (conductivity and permittivity reconstructions) obtained from your MR-EPT method applied to the test datasets provided alongside with the [standardization guidelines]().
+This tool performs an analysis of the results (conductivity and permittivity reconstructions) obtained from your MR-EPT method applied to the test datasets provided alongside with the [standardization guideline]().
 
 The repository contains both a Matlab and a Python version of the tool.
 
@@ -48,7 +50,7 @@ The input `.mat` file must contain variables named:
 - `cond`: estimated electrical conductivity values
 - `perm`: estimated relative electric permittivity values
 
-If one of the two variables is missing, it will simply be skipped during analysis. This enables compatibility with both conductivity-only methods and full complex-valued methods.
+If one of the two variables is missing, it will simply be skipped during analysis. This enables compatibility with conductivity-only, permittivity-only and full complex-valued methods.
 
 # Output
 
@@ -60,6 +62,6 @@ This repository provides the scripts to perform the analysis, but not the datase
 
 # Example of standardized report
 
-The result of this analysis can be used to fill the standardized report suggested by the [standardization guidelines]().
+The result of this analysis can be used to fill the standardized report suggested by the [standardization guideline]().
 
 An example of a standardized report is provided alongside the guidelines and the data used to produce that analysis can be downloaded from the [Zenodo repository](), where further details can be found. These data were generated using [EPTlib](https://eptlib.github.io/).

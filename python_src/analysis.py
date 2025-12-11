@@ -205,13 +205,18 @@ def evaluate_global_metrics(image, dataset_reference, quantity):
     -------
     scalar
         Global NRMSE
+    scalar
+        NRMSE of the best 99 % voxels
     """
     mask = np.logical_and(dataset_reference["segmentation"] > 0,
                           np.isfinite(image))
     x = image[mask]
     x_ref = generate_reference_map(dataset_reference, quantity)[mask]
-    m = np.linalg.norm(x - x_ref, ord=2) / np.linalg.norm(x_ref, ord=2)
-    return m
+    error = np.abs(x - x_ref)
+    m = np.linalg.norm(error, ord=2) / np.linalg.norm(x_ref, ord=2)
+    mask = error < np.percentile(error, 99)
+    m99 = np.linalg.norm(error[mask], ord=2) / np.linalg.norm(x_ref[mask], ord=2)
+    return m, m99
 
 
 def get_color_map(quantity):
@@ -328,13 +333,14 @@ def run_analysis(working_directory, input_filename, dataset_name):
                 print(results[idx])
 
             # Perform the global analysis
-            global_nrmse = evaluate_global_metrics(
+            global_nrmse, global99_nrmse = evaluate_global_metrics(
                 EPT_results[quantity], dataset_reference, quantity)
 
             # Export the results to png file
             fig = plot_map(EPT_results[quantity], dataset_reference, quantity)
             fig.text(
-                0.5, 0.02, "Global NRMSE: {:.2f} %".format(global_nrmse*100),
+                0.5, 0.02, "Global NRMSE: {:.2f} % - 99-th NRMSE: {:.2f} %".format(
+                    global_nrmse*100, global99_nrmse*100),
                 ha="center")
             address = f"{address_root}_{quantity}.png"
             fig.savefig(address, dpi=300)
