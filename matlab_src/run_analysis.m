@@ -67,7 +67,7 @@ for quantity = quantities
         fig = eval(command);
         h = axes(fig, 'Visible', 'off');
         h.XLabel.Visible = 'on';
-        xlabel(sprintf('Global NRMSE: %.2f %% - 99-th NRMSE: %.2f %%', ...
+        xlabel(sprintf('Global NRMSE: %.2f %%   -   99-th NRMSE: %.2f %%', ...
                        global_nrmse*100, global99_nrmse*100));
         address = sprintf('%s_%s.png', address_root, quantity);
         exportgraphics(fig, address, "Resolution", 300);

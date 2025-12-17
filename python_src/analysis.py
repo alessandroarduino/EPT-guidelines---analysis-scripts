@@ -339,7 +339,7 @@ def run_analysis(working_directory, input_filename, dataset_name):
             # Export the results to png file
             fig = plot_map(EPT_results[quantity], dataset_reference, quantity)
             fig.text(
-                0.5, 0.02, "Global NRMSE: {:.2f} % - 99-th NRMSE: {:.2f} %".format(
+                0.5, 0.02, "Global NRMSE: {:.2f} %   -   99-th NRMSE: {:.2f} %".format(
                     global_nrmse*100, global99_nrmse*100),
                 ha="center")
             address = f"{address_root}_{quantity}.png"
