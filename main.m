@@ -9,7 +9,7 @@ test_cases = {
     'C Simulated Brain with tumor without noise', 'C_Brain_sim_tumor_noiseless-out';
     'D Simulated Brain with tumor with noise', 'D_Brain_sim_tumor_noise-out';
     'E Measured Sphere phantom', 'E_Sphere_phantom-out';
-    'F Measured Cylindrical phantom', 'F_Cylinder_phantom-out';
+    'F Measured Cylinder phantom', 'F_Cylinder_phantom-out';
 };
 
 % create subfolders if needed
