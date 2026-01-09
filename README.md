@@ -1,10 +1,10 @@
-This readme gives an overview of the tool to analyse Magnetic Resonance-based Electrical Properties Tomography (MR-EPT) performances as part of the standardization guidelines for MR-EPT reconstruction standardization, which can be found [here]().
+This readme gives an overview of the tool to analyse Magnetic Resonance-based Electrical Properties Tomography (MR-EPT) performances as part of the standardization guidelines for MR-EPT reconstruction standardization, which can be found [here](https://doi.org/10.1002/jmri.70230).
 
-An updated version of the tool can be found in the [Github repository](https://github.com/alessandroarduino/EPT-guidelines---analysis-scripts).
+An updated version of this tool can be found in the [Github repository](https://github.com/alessandroarduino/EPT-guidelines---analysis-scripts).
 
 # Overview
 
-This tool performs an analysis of the results (conductivity and permittivity reconstructions) obtained from your MR-EPT method applied to the test datasets provided alongside with the [standardization guideline]().
+This tool performs an analysis of the results (conductivity and permittivity reconstructions) obtained from your MR-EPT method applied to the test datasets provided alongside with the [standardization guideline](https://doi.org/10.1002/jmri.70230).
 
 The repository contains both a Matlab and a Python version of the tool.
 
@@ -58,10 +58,10 @@ The results will be exported as `.xlsx` files in the specified working directory
 
 # Datasets
 
-This repository provides the scripts to perform the analysis, but not the datasets. You can download the datasets from [this Zenodo repository](). In order to have a working analysis tool, you have to copy the folder `datasets` from the Zenodo repository into this folder.
+This repository provides the scripts to perform the analysis, but not the datasets. You can download the datasets from [this Zenodo repository](https://doi.org/10.5281/zenodo.17879937). In order to have a working analysis tool, you have to copy the content of the folder `1 Input Datasets for your recon method` from the Zenodo repository into the `datasets` folder of this repository.
 
 # Example of standardized report
 
-The result of this analysis can be used to fill the standardized report suggested by the [standardization guideline]().
+The result of this analysis can be used to fill the standardized report proposed by the [standardization guideline](https://doi.org/10.1002/jmri.70230).
 
-An example of a standardized report is provided alongside the guidelines and the data used to produce that analysis can be downloaded from the [Zenodo repository](), where further details can be found. These data were generated using [EPTlib](https://eptlib.github.io/).
+An example of a standardized report is provided alongside the guidelines and the data used to produce that analysis can be downloaded from the [Zenodo repository](https://doi.org/10.5281/zenodo.17879937), where further details can be found. These data were generated using [EPTlib](https://eptlib.github.io/).
