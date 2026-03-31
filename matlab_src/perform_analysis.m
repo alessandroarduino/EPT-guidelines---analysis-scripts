@@ -29,8 +29,8 @@ n_erosions = length(erosion_levels);
 n_metrics = length(list_of_metrics);
 
 table_size = [n_erosions, n_metrics+1];
-table_type = repmat("double", 1, table_size(2));
-table_column_name = ["erosion level", list_of_metrics];
+[table_type{1:table_size(2)}] = deal('double');
+table_column_name = [{'erosion level'}, list_of_metrics];
 
 results = cell(n_labels, 1);
 
@@ -50,7 +50,9 @@ for label = 1:n_labels
 
         x = get_eroded_segment(image, mask, erosion_level);
 
-        for metrics = list_of_metrics
+        for idx_me = 1:length(list_of_metrics)
+            metrics = list_of_metrics{idx_me};
+            
             m = apply_metrics(metrics, x, x_ref);
             results{label}.(metrics)(row) = m;
         end

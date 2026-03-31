@@ -10,13 +10,22 @@ The repository contains both a Matlab and a Python version of the tool.
 
 # How to Run
 
-## Matlab
+## Matlab/Octave
 
 1. Open the file `main.m`.
 2. Update the following parameters:
    - `working_directory`: the folder where input/output files are stored.
    - `test_cases`: cell with two columns and as many rows as the test cases to be analysed. In each row, you must report in the first column the name of the dataset used for testing, and in the second column the name of the `.mat` file (without extension) that contains the MR-EPT results in the working directory.
 3. Run `main.m`.
+
+### Octave
+
+Warning! Currently the code cannot be run with Octave because of the missing function `writetable` in `tablicious`. Some correction is also needed in the usage of `strel`, because `image` does not support the shape `sphere`.
+
+If using [Octave](https://octave.org/) (>=11.1.0), the following packages are required:
+
+   - [image](https://octave.sourceforge.io/image/index.html) (>=2.20.0)
+   - [tablicious](https://github.com/apjanke/octave-tablicious) (>=0.4.7)
 
 ### Credits
 

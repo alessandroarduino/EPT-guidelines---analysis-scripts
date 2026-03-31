@@ -33,8 +33,10 @@ load(address);
 dataset_reference = get_dataset_reference(dataset_name);
 
 count = 0;
-quantities = ["cond", "perm"];
-for quantity = quantities
+quantities = {'cond', 'perm'};
+for idx_qu = 1:length(quantities)
+    quantity = quantities{idx_qu};
+
     if exist(quantity, 'var')
         count = count + 1;
         
