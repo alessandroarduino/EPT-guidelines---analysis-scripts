@@ -64,4 +64,4 @@ This repository provides the scripts to perform the analysis, but not the datase
 
 The result of this analysis can be used to fill the standardized report proposed by the [standardization guideline](https://doi.org/10.1002/jmri.70230).
 
-An example of a standardized report is provided alongside the guidelines and the data used to produce that analysis can be downloaded from the [Zenodo repository](https://doi.org/10.5281/zenodo.17879937), where further details can be found. These data were generated using [EPTlib](https://eptlib.github.io/).
+An example of a standardized report is provided alongside the guidelines and the data used to produce that analysis can be downloaded from the [Zenodo repository](https://doi.org/10.5281/zenodo.17879937), where further details can be found. These data were generated using [EPTlib v0.4.4](https://eptlib.github.io/).
